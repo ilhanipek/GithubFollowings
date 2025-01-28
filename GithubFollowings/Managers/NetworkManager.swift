@@ -7,9 +7,9 @@
 
 import Foundation
 import UIKit
+import RealmSwift
 
 class NetworkManager {
-
   static let shared = NetworkManager()
   let baseUrl = "https://api.github.com"
   let cache = NSCache<NSString, UIImage>()
@@ -35,7 +35,6 @@ class NetworkManager {
         completion(.failure(.badResponse))
         return
       }
-      print(url)
       if let data = data {
         do {
           let decoder = JSONDecoder()

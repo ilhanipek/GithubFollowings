@@ -24,14 +24,18 @@ class FollowingListVC: UIViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    view.backgroundColor = .systemBackground
-    navigationController?.title = userName
-    navigationController?.isNavigationBarHidden = false
-    navigationController?.navigationBar.prefersLargeTitles = true
+    configureViewController()
     configureCollectionView()
     configureSearchController()
     getFollowings(username: userName, page: 1)
     configureDataSource()
+  }
+
+  func configureViewController() {
+    view.backgroundColor = .systemBackground
+    navigationController?.title = userName
+    navigationController?.isNavigationBarHidden = false
+    navigationController?.navigationBar.prefersLargeTitles = true
   }
 
   func configureCollectionView() {
@@ -70,7 +74,6 @@ class FollowingListVC: UIViewController {
             }
           }
           self.updateData(on: followings)
-
       case .failure(let error):
         self.presentGFAlertOnMainThread(title: "Error", message: "\(error.errorMessage)", buttonTitle: "OK")
       }
@@ -84,7 +87,7 @@ class FollowingListVC: UIViewController {
       return cell
     })
   }
-
+  
   func updateData(on followings: [Following]) {
     var snapshot = NSDiffableDataSourceSnapshot<Section, Following>()
     snapshot.appendSections([.main])
