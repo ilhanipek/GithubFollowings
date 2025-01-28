@@ -20,6 +20,7 @@ class GFTextField: UITextField {
     layer.borderWidth = 2
     layer.borderColor = UIColor.systemGray4.cgColor
 
+    text = "ilhanipek"
     textColor = .label
     tintColor = .label
     textAlignment = .center

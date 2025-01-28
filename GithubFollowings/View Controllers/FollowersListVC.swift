@@ -64,16 +64,16 @@ class FollowingListVC: UIViewController {
       self.dismissLoadingView()
       switch result {
       case .success(let followings):
-          if followings.count < 12 { self.hasMoreFollowings = false }
-          self.followings.append(contentsOf: followings)
-          if self.followings.isEmpty {
-            DispatchQueue.main.async {
-              let message = "This user doesn't have any followings. Tell them to follow"
-              self.showEmptyStateView(with: message, in: self.view)
-              return
-            }
+        if followings.count < 12 { self.hasMoreFollowings = false }
+        self.followings.append(contentsOf: followings)
+        if self.followings.isEmpty {
+          DispatchQueue.main.async {
+            let message = "This user doesn't have any followings. Tell them to follow"
+            self.showEmptyStateView(with: message, in: self.view)
+            return
           }
-          self.updateData(on: followings)
+        }
+        self.updateData(on: self.followings)
       case .failure(let error):
         self.presentGFAlertOnMainThread(title: "Error", message: "\(error.errorMessage)", buttonTitle: "OK")
       }
@@ -87,7 +87,7 @@ class FollowingListVC: UIViewController {
       return cell
     })
   }
-  
+
   func updateData(on followings: [Following]) {
     var snapshot = NSDiffableDataSourceSnapshot<Section, Following>()
     snapshot.appendSections([.main])
@@ -104,7 +104,7 @@ extension FollowingListVC : UICollectionViewDelegate {
     let offsetY = scrollView.contentOffset.y
     let contentHeight = scrollView.contentSize.height
     let height = scrollView.frame.size.height
-    
+
     if offsetY > contentHeight - height {
       guard hasMoreFollowings else { return }
       page += 1

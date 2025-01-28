@@ -18,7 +18,6 @@ class UserInfoVC: UIViewController {
 
     let doneButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(dismissVC))
     navigationItem.rightBarButtonItem = doneButton
-    print(username)
   }
 
   @objc func dismissVC() {
