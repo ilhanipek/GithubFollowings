@@ -11,6 +11,12 @@ fileprivate var containerView: UIView!
 
 extension UIViewController {
 
+  func addSubviews(uiViews: [UIView]) {
+    uiViews.forEach { view in
+      view.addSubview(view)
+    }
+  }
+
   func presentGFAlertOnMainThread(title: String, message: String, buttonTitle: String) {
     DispatchQueue.main.async {
       let alertVC = GFAlertVCViewController(alertTitle: title, message: message, buttonTitle: buttonTitle)
