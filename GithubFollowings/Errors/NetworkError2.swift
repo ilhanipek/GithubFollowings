@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum NetworkError : Error {
+enum NetworkError2 : Error {
   case badUrl
   case error
   case badResponse

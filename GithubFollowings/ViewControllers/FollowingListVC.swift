@@ -21,6 +21,7 @@ class FollowingListVC: UIViewController {
   var isSearching = false
   var collectionView : UICollectionView!
   var dataSource: UICollectionViewDiffableDataSource<Section, Following>!
+  let httpClient = HttpClient2()
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -47,19 +48,20 @@ class FollowingListVC: UIViewController {
   }
 
   func configureSearchController() {
-
     let searchController = UISearchController()
     searchController.searchResultsUpdater = self
     searchController.searchBar.delegate = self
     searchController.searchBar.placeholder = "Search for a username"
     searchController.obscuresBackgroundDuringPresentation = false
     navigationItem.searchController = searchController
-
   }
 
   func getFollowings(username : String, page: Int) {
     showLoadingView()
-    NetworkManager.shared.getFollowers(for: userName, page: page) { [weak self] result in
+    httpClient.getFollowings { result in
+      
+    }
+    HttpClient.shared.getFollowers(for: userName, page: page) { [weak self] result in
       guard let self = self else { return }
       self.dismissLoadingView()
       switch result {
