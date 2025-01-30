@@ -20,6 +20,11 @@ class UserInfoVC: UIViewController {
     navigationItem.rightBarButtonItem = doneButton
   }
 
+  private func getFollowingInfo(username: String) {
+    showLoadingView()
+    
+  }
+
   @objc func dismissVC() {
     dismiss(animated: true)
   }
