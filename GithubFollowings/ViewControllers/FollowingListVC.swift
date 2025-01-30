@@ -21,7 +21,7 @@ class FollowingListVC: UIViewController {
   var isSearching = false
   var collectionView : UICollectionView!
   var dataSource: UICollectionViewDiffableDataSource<Section, Following>!
-  let httpClient = HttpClient()
+  let httpClient = HttpClient.shared
 
   override func viewDidLoad() {
     super.viewDidLoad()

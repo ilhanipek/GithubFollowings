@@ -57,11 +57,14 @@ protocol NetworkProtocol {
 }
 
 class HttpClient: NetworkProtocol {
+  let cache = NSCache<NSString, UIImage>()
 
   private let urlSession: URLSession
   private let jsonDecoder: JSONDecoder
 
-  init(urlSession: URLSession = URLSession(configuration: .default), jsonDecoder: JSONDecoder = JSONDecoder()) {
+  static let shared = HttpClient()
+
+  private init(urlSession: URLSession = URLSession(configuration: .default), jsonDecoder: JSONDecoder = JSONDecoder()) {
     jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
     self.urlSession = urlSession
     self.jsonDecoder = jsonDecoder
@@ -74,6 +77,7 @@ class HttpClient: NetworkProtocol {
   {
     var url = configureUrlPath(baseUrl: baseUrl, path: path)
     configureQueryItems(url: &url, queryParameters: queryParameters)
+    print(url)
     var urlRequest = URLRequest(url: url)
     urlRequest.httpMethod = httpMethod.rawValue
     return urlRequest
@@ -105,6 +109,7 @@ class HttpClient: NetworkProtocol {
           let decodedObject = try self.jsonDecoder.decode(T.self, from: validData)
           completion(.success(decodedObject))
         } catch {
+          print("Bad Model")
           completion(.failure(.badModel))
         }
       case .failure(let networkError):
