@@ -11,12 +11,3 @@ struct Following : Codable, Hashable {
   var login : String
   var avatarUrl : String 
 }
-
-extension Following {
-  
-  static let followingList : [Following] = [
-    .init(login: "İlhan", avatarUrl: "wwwçcmdslfssfsfls"),
-    .init(login: "sdkfsfsj", avatarUrl: "sdlkfjsf"),
-    .init(login: "sdfsdf", avatarUrl: "sdfsdfsd")
-  ]
-}
