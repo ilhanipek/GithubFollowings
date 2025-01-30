@@ -31,20 +31,38 @@ enum NetworkError: Error {
   case serverError
   case invalidResponse
   case unknown
-  case badUrl
   case badModel
+  case badUrl
+
+  var errorMessage : String {
+    switch self {
+    case .clientError:
+      return ""
+    case .serverError:
+      return ""
+    case .invalidResponse:
+      return ""
+    case .unknown:
+      return ""
+    case .badModel:
+      return ""
+    case .badUrl:
+      return ""
+    }
+  }
 }
 
 protocol NetworkProtocol {
   func processRequest<T:Decodable>(urRequest: URLRequest, completion: @escaping (Result<T, NetworkError>) -> Void)
 }
 
-class HttpClient2: NetworkProtocol {
+class HttpClient: NetworkProtocol {
 
   private let urlSession: URLSession
   private let jsonDecoder: JSONDecoder
 
   init(urlSession: URLSession = URLSession(configuration: .default), jsonDecoder: JSONDecoder = JSONDecoder()) {
+    jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
     self.urlSession = urlSession
     self.jsonDecoder = jsonDecoder
   }
@@ -56,7 +74,7 @@ class HttpClient2: NetworkProtocol {
   {
     var url = configureUrlPath(baseUrl: baseUrl, path: path)
     configureQueryItems(url: &url, queryParameters: queryParameters)
-
+    print(url)
     var urlRequest = URLRequest(url: url)
     urlRequest.httpMethod = httpMethod.rawValue
     return urlRequest
@@ -88,6 +106,7 @@ class HttpClient2: NetworkProtocol {
           let decodedObject = try self.jsonDecoder.decode(T.self, from: validData)
           completion(.success(decodedObject))
         } catch {
+          print("Bad Model")
           completion(.failure(.badModel))
         }
       case .failure(let networkError):
@@ -131,47 +150,5 @@ class HttpClient2: NetworkProtocol {
     default:
       return .failure(NetworkError.unknown)
     }
-  }
-}
-
-
-class HttpClient {
-  let networkerror = NetworkError2.self
-  static let shared = HttpClient()
-  let cache = NSCache<NSString, UIImage>()
-
-  private init() {}
-
-  func getFollowers(for userName: String, page: Int, completion: @escaping (Result<[Following],NetworkError2>) -> Void) {
-
-    let endPoint = baseUrl + "/users/\(userName)/following?per_page=12&page=\(page)"
-
-    guard let url = URL(string: endPoint) else {
-      completion(.failure(.badUrl))
-      return
-    }
-
-    URLSession.shared.dataTask(with: url) { data, response, error in
-      if let error = error {
-        completion(.failure(.error))
-      }
-
-      guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
-        completion(.failure(.badResponse))
-        return
-      }
-      if let data = data {
-        do {
-          let decoder = JSONDecoder()
-          decoder.keyDecodingStrategy = .convertFromSnakeCase
-          let data = try decoder.decode([Following].self, from: data)
-          completion(.success(data))
-        }catch {
-          completion(.failure(.badData))
-          return
-        }
-      }
-    }
-    .resume()
   }
 }

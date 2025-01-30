@@ -21,15 +21,24 @@ class FollowingListVC: UIViewController {
   var isSearching = false
   var collectionView : UICollectionView!
   var dataSource: UICollectionViewDiffableDataSource<Section, Following>!
-  let httpClient = HttpClient2()
+  let httpClient = HttpClient()
 
   override func viewDidLoad() {
     super.viewDidLoad()
     configureViewController()
     configureCollectionView()
     configureSearchController()
-    getFollowings(username: userName, page: 1)
+    getFollowings(username: userName, followingCountPerPage: 12, page: 1)
     configureDataSource()
+
+    httpClient.getFollowings(username: "ilhanipek", followingCountPerPage: 12, page: 1) { result in
+      switch result {
+      case .success(let followings):
+        print(followings)
+      case .failure(let error):
+        print(error.localizedDescription)
+      }
+    }
   }
 
   func configureViewController() {
@@ -55,13 +64,10 @@ class FollowingListVC: UIViewController {
     searchController.obscuresBackgroundDuringPresentation = false
     navigationItem.searchController = searchController
   }
-
-  func getFollowings(username : String, page: Int) {
+  
+  func getFollowings(username : String,followingCountPerPage: Int, page: Int) {
     showLoadingView()
-    httpClient.getFollowings { result in
-      
-    }
-    HttpClient.shared.getFollowers(for: userName, page: page) { [weak self] result in
+    httpClient.getFollowings(username: username, followingCountPerPage: followingCountPerPage, page: page) { [weak self] result in
       guard let self = self else { return }
       self.dismissLoadingView()
       switch result {
@@ -110,7 +116,7 @@ extension FollowingListVC : UICollectionViewDelegate {
     if offsetY > contentHeight - height {
       guard hasMoreFollowings else { return }
       page += 1
-      getFollowings(username: userName, page: page)
+      getFollowings(username: userName, followingCountPerPage: 12, page: page)
     }
   }
 

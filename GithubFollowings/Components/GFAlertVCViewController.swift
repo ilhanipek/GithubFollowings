@@ -8,39 +8,39 @@
 import UIKit
 
 class GFAlertVCViewController: UIViewController {
-
+  
   let alertContainerView = UIView()
   let titleLabel = GFTitleLabel(textAlignment: .center, fontSize: 20, fontWeight: .bold)
   let bodyLabel = GFBodyLabel(textAlignment: .center)
   let actionButton = GFButton(backgroundColor: .systemPink, title: "Ok")
-
+  
   var alertTitle : String?
   var message : String?
   var buttonTitle : String?
-
+  
   let padding : CGFloat = 20
-
+  
   init(alertTitle: String, message: String, buttonTitle: String) {
     super.init(nibName: nil, bundle: nil)
     self.alertTitle = alertTitle
     self.message = message
     self.buttonTitle = buttonTitle
-
+    
   }
   
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
   
-    override func viewDidLoad() {
-        super.viewDidLoad()
-      
-      view.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.75)
-      configureAlertContainer()
-      configureTitleLabel()
-      configureMessageLabel()
-      configureActionButton()
-    }
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    
+    view.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.75)
+    configureAlertContainer()
+    configureTitleLabel()
+    configureMessageLabel()
+    configureActionButton()
+  }
   
   func configureAlertContainer() {
     view.addSubview(alertContainerView)
@@ -49,7 +49,7 @@ class GFAlertVCViewController: UIViewController {
     alertContainerView.layer.borderColor = UIColor.white.cgColor
     alertContainerView.layer.cornerRadius = 16
     alertContainerView.layer.borderWidth = 2
-
+    
     NSLayoutConstraint.activate([
       alertContainerView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
       alertContainerView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
@@ -69,7 +69,7 @@ class GFAlertVCViewController: UIViewController {
       titleLabel.heightAnchor.constraint(equalToConstant: 28)
     ])
   }
-
+  
   func configureActionButton() {
     alertContainerView.addSubview(actionButton)
     actionButton.setTitle("Ok", for: .normal)
@@ -84,16 +84,16 @@ class GFAlertVCViewController: UIViewController {
       actionButton.heightAnchor.constraint(equalToConstant: 44)
     ])
   }
-
+  
   @objc func dismissVC() {
     dismiss(animated: true)
   }
-
+  
   func configureMessageLabel() {
     alertContainerView.addSubview(bodyLabel)
     bodyLabel.text = message ?? "Undefined alert situation"
     bodyLabel.numberOfLines = 4
-
+    
     NSLayoutConstraint.activate([
       bodyLabel.bottomAnchor.constraint(equalTo: alertContainerView.bottomAnchor, constant: -50),
       bodyLabel.topAnchor.constraint(equalTo: alertContainerView.topAnchor, constant: 8),
