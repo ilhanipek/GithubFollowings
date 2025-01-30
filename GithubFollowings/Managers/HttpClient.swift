@@ -74,7 +74,6 @@ class HttpClient: NetworkProtocol {
   {
     var url = configureUrlPath(baseUrl: baseUrl, path: path)
     configureQueryItems(url: &url, queryParameters: queryParameters)
-    print(url)
     var urlRequest = URLRequest(url: url)
     urlRequest.httpMethod = httpMethod.rawValue
     return urlRequest
@@ -106,7 +105,6 @@ class HttpClient: NetworkProtocol {
           let decodedObject = try self.jsonDecoder.decode(T.self, from: validData)
           completion(.success(decodedObject))
         } catch {
-          print("Bad Model")
           completion(.failure(.badModel))
         }
       case .failure(let networkError):
