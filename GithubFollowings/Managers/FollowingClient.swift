@@ -8,7 +8,9 @@
 import Foundation
 
 protocol FollowingProtocol {
-  
+  func getFollowings(username: String, followingCountPerPage: Int, page: Int, completion: @escaping (Result<[Following], NetworkError>) -> Void)
+
+  func getFollowingByUsername(followingUsername: String, completion: @escaping (Result<Following, NetworkError>) -> Void)
 }
 
 extension HttpClient: FollowingProtocol {
@@ -27,7 +29,7 @@ extension HttpClient: FollowingProtocol {
         "page"     : "\(page)"
       ]
     )
-    processRequest(urRequest: urlRequest, completion: completion)
+    processRequest(urlRequest: urlRequest, completion: completion)
   }
 
   func getFollowingByUsername(followingUsername: String, completion: @escaping (Result<Following, NetworkError>) -> Void) {
@@ -40,6 +42,6 @@ extension HttpClient: FollowingProtocol {
                                     path: "\(URLPaths.users.rawValue)/\(followingUsername)",
                                     httpMethod: .get,
                                     queryParameters: nil)
-    processRequest(urRequest: urlRequest, completion: completion)
+    processRequest(urlRequest: urlRequest, completion: completion)
   }
 }
