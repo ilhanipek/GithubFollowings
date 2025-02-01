@@ -9,12 +9,13 @@ import UIKit
 
 class GFTitleLabel: UILabel {
 
+  
   override init(frame: CGRect) {
     super.init(frame: frame)
     configure()
   }
 
-  init(textAlignment: NSTextAlignment, fontSize: CGFloat,fontWeight: UIFont.Weight) {
+  init(textAlignment: NSTextAlignment,fontSize : CGFloat,fontWeight: UIFont.Weight) {
     super.init(frame: .zero)
     self.textAlignment = textAlignment
     self.font = UIFont.systemFont(ofSize: fontSize, weight: fontWeight)
@@ -24,7 +25,7 @@ class GFTitleLabel: UILabel {
   private func configure() {
     textColor = .label
     adjustsFontSizeToFitWidth = true
-    minimumScaleFactor = 0.75
+    minimumScaleFactor = 0.9
     lineBreakMode = .byTruncatingTail
     translatesAutoresizingMaskIntoConstraints = false
   }
