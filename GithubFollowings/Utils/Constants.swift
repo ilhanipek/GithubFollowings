@@ -6,3 +6,7 @@
 //
 
 import Foundation
+
+@frozen public enum SFSymbols {
+  static let location = "mappin.and.ellipse"
+}
