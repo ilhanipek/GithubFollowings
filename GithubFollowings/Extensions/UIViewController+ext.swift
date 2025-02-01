@@ -13,7 +13,7 @@ extension UIViewController {
 
   func addSubviews(uiViews: [UIView]) {
     uiViews.forEach { view in
-      view.addSubview(view)
+      self.view.addSubview(view)
     }
   }
 
