@@ -10,7 +10,7 @@ import Foundation
 protocol FollowingProtocol {
   func getFollowings(username: String, followingCountPerPage: Int, page: Int, completion: @escaping (Result<[Following], NetworkError>) -> Void)
 
-  func getFollowingByUsername(followingUsername: String, completion: @escaping (Result<Following, NetworkError>) -> Void)
+  func getFollowingByUsername(followingUsername: String, completion: @escaping (Result<User, NetworkError>) -> Void)
 }
 
 extension HttpClient: FollowingProtocol {
@@ -32,13 +32,13 @@ extension HttpClient: FollowingProtocol {
     processRequest(urlRequest: urlRequest, completion: completion)
   }
 
-  func getFollowingByUsername(followingUsername: String, completion: @escaping (Result<Following, NetworkError>) -> Void) {
+  func getFollowingByUsername(followingUsername: String, completion: @escaping (Result<User, NetworkError>) -> Void) {
     guard let baseUrl = URL(string: baseUrl) else {
       completion(.failure(.badUrl))
       return
     }
 
-    var urlRequest = makeUrlRequest(baseUrl: baseUrl,
+    let urlRequest = makeUrlRequest(baseUrl: baseUrl,
                                     path: "\(URLPaths.users.rawValue)/\(followingUsername)",
                                     httpMethod: .get,
                                     queryParameters: nil)

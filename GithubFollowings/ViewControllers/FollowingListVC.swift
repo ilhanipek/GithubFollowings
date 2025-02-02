@@ -125,6 +125,7 @@ extension FollowingListVC : UICollectionViewDelegate {
     let following = activeArray[indexPath.item]
     let destVC = UserInfoVC()
     destVC.username = following.login
+    destVC.avatarUrl = following.avatarUrl
     let navController = UINavigationController(rootViewController: destVC)
     present(navController, animated: true)
   }

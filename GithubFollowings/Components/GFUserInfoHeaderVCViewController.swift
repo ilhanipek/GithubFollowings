@@ -17,10 +17,12 @@ class GFUserInfoHeaderVCViewController: UIViewController {
   let bioLabel = GFBodyLabel(textAlignment: .left)
   
   var user: User!
+  var avatarUrl: String?
 
-  init(user: User) {
+  init(user: User, avatarUrl: String? = nil) {
     super.init(nibName: nil, bundle: nil)
     self.user = user
+    self.avatarUrl = avatarUrl
   }
 
   required init?(coder: NSCoder) {
@@ -32,6 +34,7 @@ class GFUserInfoHeaderVCViewController: UIViewController {
       addSubviews()
       layoutUI()
       configureUIElements()
+      print(user!)
     }
 
   private func addSubviews() {
@@ -61,8 +64,8 @@ class GFUserInfoHeaderVCViewController: UIViewController {
       usernameLabel.heightAnchor.constraint(equalToConstant: 38),
 
       nameLabel.centerYAnchor.constraint(equalTo: avatarImageView.centerYAnchor, constant: 8),
-      nameLabel.leadingAnchor.constraint(equalTo: avatarImageView.leadingAnchor, constant: textImagePadding),
-      nameLabel.trailingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: -padding),
+      nameLabel.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: textImagePadding),
+      nameLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
       nameLabel.heightAnchor.constraint(equalToConstant: 20),
 
       locationImageView.bottomAnchor.constraint(equalTo: avatarImageView.bottomAnchor),
@@ -71,7 +74,7 @@ class GFUserInfoHeaderVCViewController: UIViewController {
       locationImageView.heightAnchor.constraint(equalToConstant: 20),
 
       locationLabel.centerYAnchor.constraint(equalTo: locationImageView.centerYAnchor),
-      locationLabel.leadingAnchor.constraint(equalTo: locationImageView.leadingAnchor, constant: 5),
+      locationLabel.leadingAnchor.constraint(equalTo: locationImageView.trailingAnchor, constant: 5),
       locationLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
       locationLabel.heightAnchor.constraint(equalToConstant: 20),
 
@@ -81,15 +84,16 @@ class GFUserInfoHeaderVCViewController: UIViewController {
       bioLabel.heightAnchor.constraint(equalToConstant: 60)
     ])
   }
-
+  
   private func configureUIElements() {
-    avatarImageView.downloadImage(from: user.avatarUrl)
+    avatarImageView.downloadImage(from: avatarUrl ?? "")
     usernameLabel.text = user.login
     nameLabel.text = user.name ?? ""
     locationLabel.text = user.location ?? "No Location"
     bioLabel.text = user.bio ?? ""
     bioLabel.numberOfLines = 3
     locationImageView.image = UIImage(systemName: SFSymbols.location)
+    locationImageView.tintColor = .black
     locationLabel.tintColor = .secondaryLabel
   }
 }

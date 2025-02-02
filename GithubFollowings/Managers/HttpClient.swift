@@ -66,6 +66,7 @@ class HttpClient: NetworkProtocol {
 
   private init(urlSession: URLSession = URLSession(configuration: .default), jsonDecoder: JSONDecoder = JSONDecoder()) {
     jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
+    jsonDecoder.dateDecodingStrategy = .iso8601
     self.urlSession = urlSession
     self.jsonDecoder = jsonDecoder
   }
@@ -83,7 +84,7 @@ class HttpClient: NetworkProtocol {
     return urlRequest
   }
 
-  internal func processRequest<T: Decodable>(urlRequest: URLRequest, completion: @escaping (Result<T, NetworkError>) -> Void) {
+  func processRequest<T: Decodable>(urlRequest: URLRequest, completion: @escaping (Result<T, NetworkError>) -> Void) {
 
     let task = urlSession.dataTask(with: urlRequest) { [weak self] data, response, error in
       guard let self = self else { return }
