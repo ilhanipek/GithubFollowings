@@ -7,7 +7,11 @@
 
 import UIKit
 
-class GFUserInfoHeaderVCViewController: UIViewController {
+protocol GFUserInfoHeaderDataSource: AnyObject {
+  func fetchAvatarUrl(to source: GFUserInfoHeaderVC) -> String?
+}
+
+class GFUserInfoHeaderVC: UIViewController {
 
   var avatarImageView = GFAvatarImageView(frame: .zero)
   let usernameLabel = GFTitleLabel(textAlignment: .left, fontSize: 34, fontWeight: .bold)
@@ -15,27 +19,28 @@ class GFUserInfoHeaderVCViewController: UIViewController {
   var locationImageView = UIImageView()
   let locationLabel = GFSecondaryTitleLabel(fontSize: 18)
   let bioLabel = GFBodyLabel(textAlignment: .left)
-  
+
   var user: User!
   var avatarUrl: String?
 
-  init(user: User, avatarUrl: String? = nil) {
+  weak var dataSource: GFUserInfoHeaderDataSource?
+
+  init(user: User) {
     super.init(nibName: nil, bundle: nil)
     self.user = user
-    self.avatarUrl = avatarUrl
   }
 
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
-  
-    override func viewDidLoad() {
-        super.viewDidLoad()
+
+  override func viewDidLoad() {
+      super.viewDidLoad()
       addSubviews()
       layoutUI()
       configureUIElements()
-      print(user!)
-    }
+      configureAvatarImageDataSource() // Avatar URL'yi almak için ekledik
+  }
 
   private func addSubviews() {
     addSubviews(uiViews: [
@@ -51,7 +56,7 @@ class GFUserInfoHeaderVCViewController: UIViewController {
   private func layoutUI() {
     let padding: CGFloat = 20
     let textImagePadding: CGFloat = 12
-
+    
     NSLayoutConstraint.activate([
       avatarImageView.topAnchor.constraint(equalTo: view.topAnchor, constant: padding),
       avatarImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
@@ -86,7 +91,7 @@ class GFUserInfoHeaderVCViewController: UIViewController {
   }
   
   private func configureUIElements() {
-    avatarImageView.downloadImage(from: avatarUrl ?? "")
+    //avatarImageView.downloadImage(from: avatarUrl ?? "")
     usernameLabel.text = user.login
     nameLabel.text = user.name ?? ""
     locationLabel.text = user.location ?? "No Location"
@@ -95,5 +100,14 @@ class GFUserInfoHeaderVCViewController: UIViewController {
     locationImageView.image = UIImage(systemName: SFSymbols.location)
     locationImageView.tintColor = .black
     locationLabel.tintColor = .secondaryLabel
+  }
+
+  private func configureAvatarImageDataSource() {
+    guard let dataSource = dataSource else { return }
+    avatarImageView.downloadImage(from: dataSource.fetchAvatarUrl(to: self) ?? "")
+  }
+
+  public func reloadData() {
+    configureAvatarImageDataSource()
   }
 }

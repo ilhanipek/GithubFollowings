@@ -14,24 +14,26 @@ class UserInfoVC: UIViewController {
   var avatarUrl: String?
 
   override func viewDidLoad() {
-    super.viewDidLoad()
+      super.viewDidLoad()
+      view.backgroundColor = .systemBackground
+      let doneButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(dismissVC))
+      navigationItem.rightBarButtonItem = doneButton
+      layoutUI()
 
-    view.backgroundColor = .systemBackground
-    let doneButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(dismissVC))
-    navigationItem.rightBarButtonItem = doneButton
-    layoutUI()
-    HttpClient.shared.getFollowingByUsername(followingUsername: username) { result in
-      switch result {
-      case .success(let user):
-        DispatchQueue.main.async {
-          self.add(childVC: GFUserInfoHeaderVCViewController(user: user, avatarUrl: self.avatarUrl), to: self.headerView)
+      HttpClient.shared.getFollowingByUsername(followingUsername: username) { result in
+        switch result {
+        case .success(let user):
+          DispatchQueue.main.async {
+            let userInfoHeaderVC = GFUserInfoHeaderVC(user: user)
+            userInfoHeaderVC.dataSource = self // Data source bağlantısını yaptık
+            self.add(childVC: userInfoHeaderVC, to: self.headerView)
+            userInfoHeaderVC.reloadData() // Data'yı güncelle
+          }
+        case .failure(let error):
+          self.presentGFAlertOnMainThread(title: "Something went wrong", message: "\(error.localizedDescription)", buttonTitle: "OK")
         }
-      case .failure(let error):
-        self.presentGFAlertOnMainThread(title: "Something went wrong", message: "\(error.localizedDescription)", buttonTitle: "OK")
       }
     }
-  }
-
   private func getFollowingInfo(username: String) {
     showLoadingView()
   }
@@ -63,5 +65,11 @@ class UserInfoVC: UIViewController {
     addSubviews(uiViews: [
       headerView
     ])
+  }
+}
+
+extension UserInfoVC: GFUserInfoHeaderDataSource {
+  func fetchAvatarUrl(to source: GFUserInfoHeaderVC) -> String? {
+    return avatarUrl
   }
 }

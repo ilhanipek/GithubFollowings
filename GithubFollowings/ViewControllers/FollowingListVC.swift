@@ -146,3 +146,4 @@ extension FollowingListVC : UISearchResultsUpdating, UISearchBarDelegate {
   }
 
 }
+
