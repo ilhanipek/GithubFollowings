@@ -14,13 +14,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
   func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
 
-
-
     guard let windowScene = (scene as? UIWindowScene) else { return }
 
     window = UIWindow(frame: windowScene.coordinateSpace.bounds)
     window?.windowScene = windowScene
-    window?.rootViewController = createTabBar()
+    //window?.rootViewController = createTabBar()
+    let testView = GFItemInfoView()
+    testView.set(itemInfoType: .followers, withCount: 6)
+    let testComponentVC = ViewTestVC(testComponentView: testView)
+    window?.rootViewController = testComponentVC
     window?.makeKeyAndVisible()
     configureNavigationBar()
   }

@@ -16,10 +16,11 @@ class GFItemInfoView: UIView {
   let symbolImageView = UIImageView()
   let titleLabel = GFTitleLabel(textAlignment: .left, fontSize: 14, fontWeight: .black)
   let countLabel = GFTitleLabel(textAlignment: .center, fontSize: 14, fontWeight: .black)
-
+  
   override init(frame: CGRect) {
     super.init(frame: frame)
     configure()
+    configureLayout()
   }
   
   required init?(coder: NSCoder) {
@@ -44,12 +45,11 @@ class GFItemInfoView: UIView {
       symbolImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
       symbolImageView.widthAnchor.constraint(equalToConstant: 20),
       symbolImageView.heightAnchor.constraint(equalToConstant: 20),
-
-      // title label da görünüm hatası çıkabilir.
+      
       titleLabel.topAnchor.constraint(equalTo: self.topAnchor),
       titleLabel.leadingAnchor.constraint(equalTo: symbolImageView.trailingAnchor, constant: 12),
       titleLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-      titleLabel.heightAnchor.constraint(equalToConstant: 18),
+      titleLabel.heightAnchor.constraint(equalToConstant: 20),
 
       countLabel.topAnchor.constraint(equalTo: symbolImageView.bottomAnchor, constant: 4),
       countLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor),
@@ -74,5 +74,6 @@ class GFItemInfoView: UIView {
       symbolImageView.image = UIImage(systemName: SFSymbols.following)
       titleLabel.text = "Followings"
     }
+    countLabel.text = String(withCount)
   }
 }
