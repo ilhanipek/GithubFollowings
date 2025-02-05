@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4532B5F42D48BCFE00E39650 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 4532B5F32D48BCFE00E39650 /* RealmSwift */; };
 		454BC2F52BA3119A0078DE7D /* UIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454BC2F42BA3119A0078DE7D /* UIHelper.swift */; };
 		454BC2F92BA34C9B0078DE7D /* GFEmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454BC2F82BA34C9B0078DE7D /* GFEmptyStateView.swift */; };
 		454BC2FB2BA47CA80078DE7D /* UserInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454BC2FA2BA47CA80078DE7D /* UserInfoVC.swift */; };
@@ -83,7 +82,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4532B5F42D48BCFE00E39650 /* RealmSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -257,7 +255,6 @@
 			);
 			mainGroup = 459F663D2B5ABA490072BCD4;
 			packageReferences = (
-				4532B5F22D48BCFE00E39650 /* XCRemoteSwiftPackageReference "realm-swift" */,
 			);
 			productRefGroup = 459F66472B5ABA490072BCD4 /* Products */;
 			projectDirPath = "";
@@ -509,25 +506,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		4532B5F22D48BCFE00E39650 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/realm/realm-swift.git";
-			requirement = {
-				branch = master;
-				kind = branch;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		4532B5F32D48BCFE00E39650 /* RealmSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 4532B5F22D48BCFE00E39650 /* XCRemoteSwiftPackageReference "realm-swift" */;
-			productName = RealmSwift;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 459F663E2B5ABA490072BCD4 /* Project object */;
 }
