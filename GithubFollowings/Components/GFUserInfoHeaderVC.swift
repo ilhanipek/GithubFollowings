@@ -39,7 +39,7 @@ class GFUserInfoHeaderVC: UIViewController {
       addSubviews()
       layoutUI()
       configureUIElements()
-      configureAvatarImageDataSource() // Avatar URL'yi almak için ekledik
+      configureAvatarImageDataSource()
   }
 
   private func addSubviews() {

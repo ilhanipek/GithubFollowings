@@ -46,38 +46,6 @@ struct User: Codable {
     let diskUsage: Int?
     let collaborators: Int?
     let twoFactorAuthentication: Bool?
-
-    enum CodingKeys: String, CodingKey {
-        case login, id
-        case userViewType = "user_view_type"
-        case nodeID = "node_id"
-        case avatarURL = "avatar_url"
-        case gravatarID = "gravatar_id"
-        case url
-        case htmlURL = "html_url"
-        case followersURL = "followers_url"
-        case followingURL = "following_url"
-        case gistsURL = "gists_url"
-        case starredURL = "starred_url"
-        case subscriptionsURL = "subscriptions_url"
-        case organizationsURL = "organizations_url"
-        case reposURL = "repos_url"
-        case eventsURL = "events_url"
-        case receivedEventsURL = "received_events_url"
-        case type
-        case siteAdmin = "site_admin"
-        case name, company, blog, location, email
-        case notificationEmail = "notification_email"
-        case hireable, bio
-        case twitterUsername = "twitter_username"
-        case publicRepos = "public_repos"
-        case publicGists = "public_gists"
-        case followers, following
-        case privateGists = "private_gists"
-        case totalPrivateRepos = "total_private_repos"
-        case ownedPrivateRepos = "owned_private_repos"
-        case diskUsage = "disk_usage"
-        case collaborators
-        case twoFactorAuthentication = "two_factor_authentication"
-    }
 }
+
+

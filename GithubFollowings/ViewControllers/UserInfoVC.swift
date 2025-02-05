@@ -58,9 +58,9 @@ class UserInfoVC: UIViewController {
   func layoutUI() {
     let padding: CGFloat = 20
     let itemHeight: CGFloat = 140
-
+    
     addSubviews()
-
+    
     NSLayoutConstraint.activate([
       headerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
       headerView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
@@ -79,12 +79,7 @@ class UserInfoVC: UIViewController {
     ])
   }
 
-  func add(childVC: UIViewController, to containerView: UIView) {
-    addChild(childVC)
-    containerView.addSubview(childVC.view)
-    childVC.view.frame = containerView.bounds
-    childVC.didMove(toParent: self)
-  }
+
 
   private func addSubviews() {
     addSubviews(uiViews: [
