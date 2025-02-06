@@ -18,23 +18,22 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     window = UIWindow(frame: windowScene.coordinateSpace.bounds)
     window?.windowScene = windowScene
-//    let testView = GFItemInfoView()
-//    testView.set(itemInfoType: .followers, withCount: 6)
-//    let testComponentVC = ViewTestVC(testComponentView: testView)
-//    window?.rootViewController = testComponentVC
-    window?.rootViewController = createTabBar()
+    let testView = GFItemInfoVC()
+
+    let testComponentVC = ViewControllerTestVC(testComponentVC: testView)
+    window?.rootViewController = testComponentVC
+//    window?.rootViewController = createTabBar()
     window?.makeKeyAndVisible()
     configureNavigationBar()
   }
-
+  
   func createSearchNC() -> UINavigationController {
     let searchVC = SearchVC()
     searchVC.title = "Search"
     searchVC.tabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: 0)
     return UINavigationController(rootViewController: searchVC)
   }
-
-
+  
   func createFavoritesListNC() -> UINavigationController {
     let favoritesListVC = FavoritesListVC()
     favoritesListVC.title = "Favorite"
