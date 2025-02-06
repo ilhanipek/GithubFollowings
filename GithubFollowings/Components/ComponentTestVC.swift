@@ -31,11 +31,15 @@ class ViewControllerTestVC: UIViewController, VCTestProtocol {
 
   override func viewDidLoad() {
     super.viewDidLoad()
+    view.backgroundColor = .blue
     self.add(childVC: testComponentVC, to: testView)
     layoutUI()
   }
 
   private func layoutUI() {
+    view.addSubview(testView)
+    testView.translatesAutoresizingMaskIntoConstraints = false
+
     NSLayoutConstraint.activate([
       testView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
       testView.centerYAnchor.constraint(equalTo: view.centerYAnchor)

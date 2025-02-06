@@ -18,11 +18,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     window = UIWindow(frame: windowScene.coordinateSpace.bounds)
     window?.windowScene = windowScene
-    //window?.rootViewController = createTabBar()
-    let testView = GFItemInfoView()
-    testView.set(itemInfoType: .followers, withCount: 6)
-    let testComponentVC = ViewTestVC(testComponentView: testView)
-    window?.rootViewController = testComponentVC
+//    let testView = GFItemInfoView()
+//    testView.set(itemInfoType: .followers, withCount: 6)
+//    let testComponentVC = ViewTestVC(testComponentView: testView)
+//    window?.rootViewController = testComponentVC
+    window?.rootViewController = createTabBar()
     window?.makeKeyAndVisible()
     configureNavigationBar()
   }
@@ -31,7 +31,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     let searchVC = SearchVC()
     searchVC.title = "Search"
     searchVC.tabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: 0)
-
     return UINavigationController(rootViewController: searchVC)
   }
 
